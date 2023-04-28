@@ -20,3 +20,6 @@ logging:
     root: INFO
     com.my.project.cryptoservice: DEBUG
     com.my.project.cryptoservice.service: DEBUG
+
+cryptos:
+  available: BTC,DOGE,ETH,LTC,XRP,ADA,ATOM

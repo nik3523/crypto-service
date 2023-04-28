@@ -1,5 +1,8 @@
 package com.my.project.cryptoservice.util;
 
+import com.my.project.cryptoservice.exception.CryptoValidatorException;
+import lombok.extern.log4j.Log4j2;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -7,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
+@Log4j2
 public class DateTimeUtils {
 
     private static DateTimeFormatter formatter;
@@ -31,14 +35,36 @@ public class DateTimeUtils {
     }
 
     public static LocalDateTime toLocalDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, getFormatter());
+        return parseDateTimeString(dateTime);
     }
 
     public static LocalDateTime toStartOfDay(String dateTime) {
-        return LocalDateTime.of(LocalDate.parse(dateTime, getFormatter()), LocalTime.MIN);
+        return LocalDateTime.of(parseDateString(dateTime), LocalTime.MIN);
     }
 
     public static LocalDateTime toEndOfDay(String dateTime) {
-        return LocalDateTime.of(LocalDate.parse(dateTime, getFormatter()), LocalTime.MAX);
+        return LocalDateTime.of(parseDateString(dateTime), LocalTime.MAX);
+    }
+
+    private static LocalDate parseDateString(String date) {
+        LocalDate localDate;
+        try {
+            localDate = LocalDate.parse(date, getFormatter());
+        } catch (Exception e) {
+            log.error("Wrong date format: " + date);
+            throw new CryptoValidatorException("Wrong date format: " + date);
+        }
+        return localDate;
+    }
+
+    private static LocalDateTime parseDateTimeString(String date) {
+        LocalDateTime localDateTime;
+        try {
+            localDateTime = LocalDateTime.parse(date, getFormatter());
+        } catch (Exception e) {
+            log.error("Wrong date/time format: " + date);
+            throw new CryptoValidatorException("Wrong date/time format: " + date);
+        }
+        return localDateTime;
     }
 }

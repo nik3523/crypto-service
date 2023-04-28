@@ -10,8 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import static java.lang.String.format;
@@ -49,7 +49,7 @@ public class CsvUtils {
             log.warn("Error while reading folder for CSV files: {}", folder, e);
             return Collections.emptyList();
         }
-        List<Crypto> result = new LinkedList<>();
+        List<Crypto> result = new ArrayList<>();
         log.debug("Found {} CSV files in folder {}", resources.length, folder);
         for (Resource resource : resources) {
             try {

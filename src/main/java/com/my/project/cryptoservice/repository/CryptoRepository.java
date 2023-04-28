@@ -12,6 +12,4 @@ public interface CryptoRepository extends CrudRepository<Crypto, Long> {
     List<Crypto> findAll();
     List<Crypto> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
     List<Crypto> findByNameAndDateBetween(String name, LocalDateTime localDateTime, LocalDateTime localDateTime1);
-    List<Crypto> findAllByName(String name);
-
 }

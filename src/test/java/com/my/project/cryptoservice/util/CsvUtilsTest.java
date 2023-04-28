@@ -6,24 +6,25 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CsvUtilsTest {
 
-    private CsvUtils csvUtils = new CsvUtils();
-
+    //Not really unit tests more like integration, just a way to see how the csv reader works
     @Test
     public void testCsvReader() throws FileNotFoundException {
-        File file = new File(getClass().getClassLoader().getResource("cryptosource//ETH_values.csv").getPath());
-        List<Crypto> cryptosFormCsvFile = csvUtils.readCryptosFromCsvFile(file);
+        File file = new File(getClass().getClassLoader().getResource("test//test_values.csv").getPath());
+        List<Crypto> cryptosFormCsvFile = CsvUtils.readCryptosFromCsvFile(file);
 
-        System.out.println(cryptosFormCsvFile);
+        assertEquals(15, cryptosFormCsvFile.size());
     }
 
     @Test
-    public void testCsvReaderAllFiles() throws IOException {
-        List<Crypto> cryptosFormCsvFile = csvUtils.readAllCsvFilesInFolder("cryptosource");
-        System.out.println(cryptosFormCsvFile);
+    public void testCsvReaderAllFiles() {
+        List<Crypto> cryptosFormCsvFile = CsvUtils.readAllCsvFilesInFolder("test");
+
+        assertEquals(16, cryptosFormCsvFile.size());
     }
 }
